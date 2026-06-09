@@ -1,0 +1,233 @@
+<Window x:Class="VisionMotionControl.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:pages="clr-namespace:VisionMotionControl.Views.Pages"
+        mc:Ignorable="d"
+        Title="VisionMotionControl System"
+        Height="900" Width="1600"
+        WindowStartupLocation="CenterScreen"
+        Background="#0B0F19">
+
+    <Window.Resources>
+        <Style x:Key="NavButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#94A3B8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="4,2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1E293B"/>
+                                <Setter Property="Foreground" Value="#E2E8F0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NavButtonActive" TargetType="Button" BasedOn="{StaticResource NavButton}">
+            <Setter Property="Background" Value="#3B82F620"/>
+            <Setter Property="Foreground" Value="#60A5FA"/>
+            <Setter Property="BorderBrush" Value="#3B82F640"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Header -->
+        <Border Grid.Row="0" Background="#1E293B" BorderBrush="#334155" BorderThickness="0,0,0,1">
+            <Grid Margin="16,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="32" Height="32" Background="#3B82F6" CornerRadius="6" Margin="0,0,12,0">
+                        <iconPacks:PackIconMaterialDesign Kind="Memory" Width="20" Height="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="VisionMotionControl System" FontSize="16" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                    <Border Background="#334155" CornerRadius="4" Padding="6,2" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="v2.1.0" FontSize="11" Foreground="#94A3B8"/>
+                    </Border>
+                </StackPanel>
+
+                <!-- Right Info -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Alarm Status -->
+                    <Border Background="#EF444420" BorderBrush="#EF444440" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,12,0">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterialDesign Kind="Error" Width="16" Height="16" Foreground="#EF4444" Margin="0,0,6,0"/>
+                            <TextBlock Text="无全局告警" FontSize="12" Foreground="#EF4444"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- License -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
+                        <iconPacks:PackIconMaterialDesign Kind="Shield" Width="16" Height="16" Foreground="#10B981" Margin="0,0,6,0"/>
+                        <TextBlock Text="永久授权" FontSize="12" Foreground="#CBD5E1"/>
+                    </StackPanel>
+
+                    <!-- User -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
+                        <iconPacks:PackIconMaterialDesign Kind="AccountCircle" Width="16" Height="16" Foreground="#60A5FA" Margin="0,0,6,0"/>
+                        <TextBlock Text="Admin (管理员)" FontSize="12" Foreground="#CBD5E1"/>
+                    </StackPanel>
+
+                    <!-- Clock -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,16,0" VerticalAlignment="Center">
+                        <iconPacks:PackIconMaterialDesign Kind="AccessTime" Width="16" Height="16" Foreground="#64748B" Margin="0,0,6,0"/>
+                        <TextBlock x:Name="ClockText" Text="2026-06-08 14:02:15" FontSize="12" Foreground="#CBD5E1" FontFamily="Consolas"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Sidebar -->
+            <Border Grid.Column="0" Background="#1E293B" BorderBrush="#334155" BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="功能导航" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="16,16,16,8"/>
+
+                    <StackPanel Grid.Row="1" Margin="8,0,8,8">
+                        <Button x:Name="NavVisionMotionLink" Style="{StaticResource NavButtonActive}" Click="NavButton_Click" Tag="VisionMotionLink">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="Bolt" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="视运联动" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavMotionControl" Style="{StaticResource NavButton}" Click="NavButton_Click" Tag="MotionControl">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="ArrowForward" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="运动控制" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavVisionDetect" Style="{StaticResource NavButton}" Click="NavButton_Click" Tag="VisionDetect">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="Camera" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="视觉检测" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavCadParse" Style="{StaticResource NavButton}" Click="NavButton_Click" Tag="CadParse">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="Map" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="CAD解析" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavRecipeManage" Style="{StaticResource NavButton}" Click="NavButton_Click" Tag="RecipeManage">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="SdStorage" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="配方管理" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavReports" Style="{StaticResource NavButton}" Click="NavButton_Click" Tag="Reports">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="BarChart" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="日志报表" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavSystemConfig" Style="{StaticResource NavButton}" Click="NavButton_Click" Tag="SystemConfig">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign Kind="Settings" Width="20" Height="20" Margin="0,0,10,0"/>
+                                <TextBlock Text="系统配置" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Content Frame -->
+            <Border Grid.Column="1" Background="#0B0F19">
+                <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Background="Transparent"/>
+            </Border>
+        </Grid>
+
+        <!-- Bottom Status Bar -->
+        <Border Grid.Row="2" Background="#1E293B" BorderBrush="#334155" BorderThickness="0,1,0,0">
+            <Grid Margin="12,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- ECI1408 Status -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Ellipse Width="6" Height="6" Fill="#10B981" Margin="0,0,6,0"/>
+                        <TextBlock Text="ECI1408 运动卡" FontSize="11" Foreground="#64748B" Margin="0,0,4,0"/>
+                        <TextBlock Text="192.168.1.200" FontSize="11" Foreground="#10B981" FontFamily="Consolas"/>
+                    </StackPanel>
+                    <Rectangle Width="1" Height="12" Fill="#334155" Margin="12,0"/>
+
+                    <!-- Camera Status -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                        <Ellipse Width="6" Height="6" Fill="#10B981" Margin="0,0,6,0"/>
+                        <TextBlock Text="水星相机" FontSize="11" Foreground="#64748B" Margin="0,0,4,0"/>
+                        <TextBlock Text="25 FPS" FontSize="11" Foreground="#10B981" FontFamily="Consolas"/>
+                    </StackPanel>
+                    <Rectangle Width="1" Height="12" Fill="#334155" Margin="12,0"/>
+
+                    <!-- MQTT Status -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                        <Ellipse Width="6" Height="6" Fill="#EF4444" Margin="0,0,6,0"/>
+                        <TextBlock Text="MQTT 远程" FontSize="11" Foreground="#64748B" Margin="0,0,4,0"/>
+                        <TextBlock Text="未连接" FontSize="11" Foreground="#64748B"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock FontSize="11" Foreground="#CBD5E1" Margin="0,0,16,0">
+                        <Run Text="X: "/><Run Text="125.045" Foreground="#60A5FA" FontFamily="Consolas"/>
+                    </TextBlock>
+                    <TextBlock FontSize="11" Foreground="#CBD5E1" Margin="0,0,16,0">
+                        <Run Text="Y: "/><Run Text="45.002" Foreground="#10B981" FontFamily="Consolas"/>
+                    </TextBlock>
+                    <TextBlock FontSize="11" Foreground="#CBD5E1" Margin="0,0,16,0">
+                        <Run Text="Z: "/><Run Text="0.000" Foreground="#F59E0B" FontFamily="Consolas"/>
+                    </TextBlock>
+                    <Rectangle Width="1" Height="12" Fill="#334155" Margin="0,0,12,0"/>
+                    <TextBlock Text="CPU: 12%" FontSize="11" Foreground="#64748B" FontFamily="Consolas" Margin="0,0,12,0"/>
+                    <TextBlock Text="MEM: 34%" FontSize="11" Foreground="#64748B" FontFamily="Consolas"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

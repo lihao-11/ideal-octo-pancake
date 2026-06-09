@@ -1,0 +1,50 @@
+<UserControl x:Class="VisionMotionControl.Controls.UC_AxisState"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <Border Background="#1E293B" BorderBrush="#334155" BorderThickness="1" CornerRadius="8" Padding="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                <iconPacks:PackIconMaterialDesign Kind="ArrowForward" Width="16" Height="16" Foreground="#3B82F6" Margin="0,0,8,0"/>
+                <TextBlock x:Name="AxisNameText" Text="X轴" FontSize="14" FontWeight="Medium" Foreground="#CBD5E1"/>
+                <Border x:Name="StatusBorder" Background="#10B98120" CornerRadius="4" Padding="4,2" Margin="8,0,0,0">
+                    <TextBlock x:Name="StatusText" Text="空闲" FontSize="11" Foreground="#10B981"/>
+                </Border>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="位置:" FontSize="12" Foreground="#64748B" Margin="0,0,8,0"/>
+                <TextBlock x:Name="PositionText" Grid.Column="1" Text="0.000" FontSize="14" Foreground="#60A5FA" FontFamily="Consolas" FontWeight="SemiBold"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="速度:" FontSize="12" Foreground="#64748B" Margin="0,0,8,0"/>
+                <TextBlock x:Name="SpeedText" Grid.Column="1" Text="0.000" FontSize="12" Foreground="#94A3B8" FontFamily="Consolas"/>
+            </Grid>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <Ellipse x:Name="LimitPosEllipse" Width="8" Height="8" Fill="#475569" Margin="0,0,4,0"/>
+                <TextBlock Text="正限位" FontSize="10" Foreground="#475569" Margin="0,0,12,0"/>
+                <Ellipse x:Name="LimitNegEllipse" Width="8" Height="8" Fill="#475569" Margin="0,0,4,0"/>
+                <TextBlock Text="负限位" FontSize="10" Foreground="#475569" Margin="0,0,12,0"/>
+                <Ellipse x:Name="HomeEllipse" Width="8" Height="8" Fill="#475569" Margin="0,0,4,0"/>
+                <TextBlock Text="已回零" FontSize="10" Foreground="#475569"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

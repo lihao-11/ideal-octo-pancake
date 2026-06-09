@@ -1,0 +1,22 @@
+{
+  "Camera": {
+    "Ip": "192.168.1.201",
+    "Exposure": 1000,
+    "Gain": 6.0,
+    "Fps": 25,
+    "Width": 1920,
+    "Height": 1080,
+    "TriggerMode": "Soft"
+  },
+  "Halcon": {
+    "TemplatePath": "Templates/vision_template.shm",
+    "DetectThreshold": 0.7,
+    "MinScore": 0.5
+  },
+  "Calibration": {
+    "PixelToMm": 0.025,
+    "OffsetX": 0.0,
+    "OffsetY": 0.0,
+    "RotationAngle": 0.0
+  }
+}
