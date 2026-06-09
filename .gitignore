@@ -1,1 +1,12 @@
+obj/ 
+bin/ 
 .vs/ 
+Debug/ 
+Release/ 
+*.log 
+*.tmp 
+*.user 
+*.suo 
+packages/ 
+Thumbs.db 
+.DS_Store 
